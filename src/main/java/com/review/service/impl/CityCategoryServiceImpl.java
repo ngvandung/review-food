@@ -98,7 +98,7 @@ public class CityCategoryServiceImpl implements CityCategoryService {
 	public CityCategory deleteCityCategory(long cityId) {
 		CityCategory cityCategory = cityCategoryRepository.deleteCityCategory(cityId);
 		if (cityCategory != null) {
-			String documentId = elasticsearchOperations.delete(User.class, String.valueOf(cityId));
+			String documentId = elasticsearchOperations.delete(CityCategory.class, String.valueOf(cityId));
 			log.info("documentId: " + documentId);
 		}
 		return cityCategory;

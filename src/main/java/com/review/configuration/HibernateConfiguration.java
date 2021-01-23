@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "com.review.configuration" })
-//@PropertySource(value = { "classpath:application.properties" })
+@PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
 	@Autowired
 	private Environment environment;
@@ -42,41 +42,17 @@ public class HibernateConfiguration {
 		return sessionFactory;
 	}
 
-//	@Bean
-//	public DataSource dataSource() {
-//		System.out.println("==============> URL:" + environment.getRequiredProperty("jdbc.url"));
-//		System.out.println("==============> username:" + environment.getRequiredProperty("jdbc.username"));
-//		System.out.println("==============> password:" + environment.getRequiredProperty("jdbc.password"));
-//		System.out.println("==============> Elasticsearch: " + environment.getRequiredProperty("host.elasticsearch"));
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-//		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-//		dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-//		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
-////		dataSource.setValidationTimeout(3000);
-////		dataSource.setConnectionTimeout(60000);
-////		dataSource.setIdleTimeout(60000);
-////		dataSource.setMaxLifetime(60000);
-////		dataSource.setMaximumPoolSize(10);
-//		return dataSource;
-//	}
-//
-//	private Properties hibernateProperties() {
-//		Properties properties = new Properties();
-//		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
-//		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
-//		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
-//		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.ddl-auto"));
-//		return properties;
-//	}
-
 	@Bean
 	public DataSource dataSource() {
+		System.out.println("==============> URL:" + environment.getRequiredProperty("jdbc.url"));
+		System.out.println("==============> username:" + environment.getRequiredProperty("jdbc.username"));
+		System.out.println("==============> password:" + environment.getRequiredProperty("jdbc.password"));
+		System.out.println("==============> Elasticsearch: " + environment.getRequiredProperty("host.elasticsearch"));
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/db_review_food");
-		dataSource.setUsername("dungnv");
-		dataSource.setPassword("@dungnv0910");
+		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
+		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
+		dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
+		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
 //		dataSource.setValidationTimeout(3000);
 //		dataSource.setConnectionTimeout(60000);
 //		dataSource.setIdleTimeout(60000);
@@ -87,12 +63,36 @@ public class HibernateConfiguration {
 
 	private Properties hibernateProperties() {
 		Properties properties = new Properties();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-		properties.put("hibernate.show_sql", "false");
-		properties.put("hibernate.format_sql", "true");
-		properties.put("hibernate.hbm2ddl.auto", "validate");
+		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
+		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.ddl-auto"));
 		return properties;
 	}
+
+//	@Bean
+//	public DataSource dataSource() {
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/db_review_food");
+//		dataSource.setUsername("dungnv");
+//		dataSource.setPassword("@dungnv0910");
+////		dataSource.setValidationTimeout(3000);
+////		dataSource.setConnectionTimeout(60000);
+////		dataSource.setIdleTimeout(60000);
+////		dataSource.setMaxLifetime(60000);
+////		dataSource.setMaximumPoolSize(10);
+//		return dataSource;
+//	}
+//
+//	private Properties hibernateProperties() {
+//		Properties properties = new Properties();
+//		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+//		properties.put("hibernate.show_sql", "false");
+//		properties.put("hibernate.format_sql", "true");
+//		properties.put("hibernate.hbm2ddl.auto", "validate");
+//		return properties;
+//	}
 
 	@Bean
 	@Autowired

@@ -23,19 +23,19 @@ public class ElasticsearchConfig {
 	@Autowired
 	private Environment environment;
 	
-//	@Bean
-//	RestHighLevelClient client() {
-//		ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-//				.connectedTo(environment.getRequiredProperty("host.elasticsearch"), environment.getRequiredProperty("host.elasticsearch.temp")).build();
-//
-//		return RestClients.create(clientConfiguration).rest();
-//	}
-
 	@Bean
 	RestHighLevelClient client() {
 		ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-				.connectedTo("localhost:9200", "localhost:9201").build();
+				.connectedTo(environment.getRequiredProperty("host.elasticsearch"), environment.getRequiredProperty("host.elasticsearch.temp")).build();
 
 		return RestClients.create(clientConfiguration).rest();
 	}
+
+//	@Bean
+//	RestHighLevelClient client() {
+//		ClientConfiguration clientConfiguration = ClientConfiguration.builder()
+//				.connectedTo("localhost:9200", "localhost:9201").build();
+//
+//		return RestClients.create(clientConfiguration).rest();
+//	}
 }

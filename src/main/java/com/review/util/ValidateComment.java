@@ -9,7 +9,7 @@ package com.review.util;
  */
 public class ValidateComment {
 	public static boolean validateComment(String content) {
-		if (content.contains("cá hồi")) {
+		if ("đcm, súc vật, súc sinh, ngu".contains(content)) {
 			return false;
 		}
 		return true;

@@ -83,7 +83,8 @@ public class CommentRepositoryImpl implements CommentRepository {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = null;
 		transaction = session.beginTransaction();
-		Comment comment = sessionFactory.getCurrentSession().get(Comment.class, commentId);
+		Comment comment = findById(commentId);
+		System.out.println(commentId);
 		session.delete(comment);
 		transaction.commit();
 		session.close();

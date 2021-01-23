@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.review.model.CityCategory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -90,6 +91,10 @@ public class CommentServiceImpl implements CommentService {
 	public Comment deleteComment(long commentId) {
 		Comment comment = findById(commentId);
 		comment = commentRepository.deleteComment(commentId);
+		if (comment != null) {
+			String documentId = elasticsearchOperations.delete(Comment.class, String.valueOf(commentId));
+			log.info("documentId: " + documentId);
+		}
 		return comment;
 	}
 
